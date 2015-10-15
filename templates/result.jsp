@@ -9,20 +9,23 @@
 	<div class="row">
 	<div class="card-panel col l4 offset-l4 s6 offset-s3 left">
 		<table class="striped" border="1px">
-			<tr>
-				{% for header in headers %}
-					<th>{{header}}</th>
-				{% endfor %}
-			</tr>
-		<tbody>
-		{% for result in results %}
-			<tr>
-				{% for val in result %}
-					<td>{{val}}</td>
-				{% endfor %}
-			</tr>
-		{% endfor %}
-		</tbody>
+			<thead>
+				<tr>
+					{% for header in headers %}
+						<th>{{header}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<div class="divider"></div>
+			<tbody>
+			{% for result in results %}
+				<tr>
+					{% for val in result %}
+						<td>{{val}}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+			</tbody>
 		</table>
 	</div>
 	</div>
