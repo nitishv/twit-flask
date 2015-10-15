@@ -87,8 +87,6 @@ def result():
 		return render_template('result.jsp', results=results, headers=headers)
 	
 	
-	
-	
 def valid_login(user, pwd):
 	if user == 'nitish' and pwd == '1234':
 		session['username'] = user
