@@ -71,18 +71,18 @@ def result():
 		headers = ['Word', 'Frequency']
 		return render_template('result.jsp', results=results, headers=headers)
 	elif option == 3:
-		results = tweet_sentiment.calculate_tweet_sentiment('AFINN-111.txt', session['tweet_count'], n, 1)
+		results = tweet_sentiment.calculate_tweet_sentiment('resources/AFINN-111.txt', session['tweet_count'], n, 1)
 		headers = ['Tweet', 'Score']
 		resp = make_response(render_template('result.jsp', results=results, headers=headers))
 		resp.headers['Content-Type'] = 'text/html; charset=utf-8'
 		return resp
 	elif option == 4:
-		results = tweet_sentiment.calculate_tweet_sentiment('AFINN-111.txt', session['tweet_count'], n, -1)
+		results = tweet_sentiment.calculate_tweet_sentiment('resources/AFINN-111.txt', session['tweet_count'], n, -1)
 		headers = ['Tweet', 'Score']
 		return render_template('result.jsp', results=results, headers=headers)
 	elif option == 5:
 		print 'in 5'
-		results = happiest_state.get_state_happiness('AFINN-111.txt', session['tweet_count'])
+		results = happiest_state.get_state_happiness('resources/AFINN-111.txt', session['tweet_count'])
 		headers = ['State Code', 'State Name', 'Tweets', 'Score']
 		return render_template('result.jsp', results=results, headers=headers)
 	

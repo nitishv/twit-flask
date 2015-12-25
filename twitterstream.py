@@ -1,6 +1,7 @@
 import oauth2 as oauth
 import urllib2 as urllib
 import sys
+import os.path
 
 
 with open('nvcmu_twitter.csv', 'rb') as f:
@@ -11,17 +12,13 @@ api_secret = api_secret.strip()
 access_token_key = access_token_key.strip()
 access_token_secret = access_token_secret.strip()
 
-
 _debug = 0
 
 oauth_token    = oauth.Token(key=access_token_key, secret=access_token_secret)
 oauth_consumer = oauth.Consumer(key=api_key, secret=api_secret)
-
 signature_method_hmac_sha1 = oauth.SignatureMethod_HMAC_SHA1()
 
 http_method = "GET"
-
-
 http_handler  = urllib.HTTPHandler(debuglevel=_debug)
 https_handler = urllib.HTTPSHandler(debuglevel=_debug)
 
@@ -70,19 +67,19 @@ def fetchsamples(tweet_count):
 		print str(line.encode('utf-8')).strip()
 	else:
 		break
-  
-  
-  
-  response = twitterreq(url, "GET", parameters)
-  with open(file, 'wb') as f:
-	print 'Writing tweets to ' + file
-	for line in response:
-		if count < tweet_count:
-			count = count + 1
-			f.write(str(line.encode('utf-8')).strip() + '\n')
-		else:
-			break
   '''
+  
+  
+  if not os.path.exists(file):
+	  response = twitterreq(url, "GET", parameters)
+	  with open(file, 'wb') as f:
+		print 'Writing tweets to ' + file
+		for line in response:
+			if count < tweet_count:
+				count = count + 1
+				f.write(str(line.encode('utf-8')).strip() + '\n')
+			else:
+				break
   
   print 'Reading ' +file
   with open(file, 'rb') as f:
