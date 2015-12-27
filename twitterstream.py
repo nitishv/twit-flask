@@ -43,12 +43,13 @@ def twitter_req(url, method, parameters):
 def update_tweet_dump():
     url = "https://stream.twitter.com/1/statuses/sample.json"
     parameters = []
-    count = 0
+    
     curr_time = time.time()
     global last_update_time
     
-    if tweet_count != line_count(file) or curr_time - last_update_time > tweet_dump_interval:
+    if (os.path.exists(file) and tweet_count != line_count(file)) or curr_time - last_update_time > tweet_dump_interval:
         response = twitter_req(url, "GET", parameters)
+        count = 0
         with open(file, 'wb') as f:
             print 'Writing ' + str(tweet_count) + ' tweets to ' + file
             for line in response:
@@ -64,20 +65,20 @@ def fetch_samples(num_tweets):
     results = []
     
     global tweet_count
+    global is_updater_started
     
-    if tweet_count == -1:
+    if is_updater_started:
         tweet_count = int(num_tweets)
-        thread = threading.Thread(target=update_tweet_dump, args=())
-        thread.daemon = True
-        thread.start()
     else:
         tweet_count = int(num_tweets)
+        updater.start()
+        is_updater_started = True
 
-    if not os.path.exists(file) or line_count(file) != tweet_count:
+    if not os.path.exists(file) or (os.path.exists(file) and line_count(file) != tweet_count):
         print 'Tweet dump not ready yet'
         time.sleep(10)
         return results
-
+        
     print 'Reading ' + file
     with open(file, 'rb') as f:
         for line in f.readlines():
@@ -103,7 +104,9 @@ file = 'tweet_dump.txt'
 # Time in secs after which the Tweet dump in asynchronously updated in background
 tweet_dump_interval = 3600
 last_update_time = 0
-
+updater = threading.Thread(target=update_tweet_dump, args=())
+updater.daemon = True
+is_updater_started = False
 
 with open('nvcmu_twitter.csv', 'rb') as f:
     api_key, api_secret, access_token_key, access_token_secret = f.readline().split(',')
