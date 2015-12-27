@@ -63,46 +63,50 @@ def result():
 	n = session['topn']
 	if option == 1:
 		results = top_tags.calculate_top_tags(session['tweet_count'], n)
-		headers = ['HashTag', 'Frequency']
+        if not results:
+             return redirect(url_for('result'))
+        headers = ['HashTag', 'Frequency']
 		return render_template('result.jsp', results=results, headers=headers)
 	elif option == 2:
 		results = top_terms.calculate_term_frequency(session['tweet_count'], n)
 		headers = ['Word', 'Frequency']
+        if not results:
+            return redirect(url_for('result'))
 		return render_template('result.jsp', results=results, headers=headers)
 	elif option == 3:
 		results = tweet_sentiment.calculate_tweet_sentiment('resources/AFINN-111.txt', session['tweet_count'], n, 1)
 		headers = ['Tweet', 'Score']
+        if not results:
+             return redirect(url_for('result'))
 		resp = make_response(render_template('result.jsp', results=results, headers=headers))
 		resp.headers['Content-Type'] = 'text/html; charset=utf-8'
 		return resp
 	elif option == 4:
 		results = tweet_sentiment.calculate_tweet_sentiment('resources/AFINN-111.txt', session['tweet_count'], n, -1)
+        if not results:
+             return redirect(url_for('result'))
 		headers = ['Tweet', 'Score']
 		return render_template('result.jsp', results=results, headers=headers)
 	elif option == 5:
 		results = happiest_state.get_state_happiness('resources/AFINN-111.txt', session['tweet_count'])
+        if not results:
+             return redirect(url_for('result'))
 		headers = ['State Code', 'State Name', 'Tweets', 'Score']
 		return render_template('result.jsp', results=results, headers=headers)
-	
-	
+
 def valid_login(user, pwd):
 	if user == 'nitish' and pwd == '1234':
 		session['username'] = user
 		return True
 	else:
 		return False
-
-		
+	
 @app.route('/logout')
 def logout():
 	# remove the username from the session if it's there
 	session.pop('username', None)
 	flash('You have been successfully logged out!')
 	return redirect(url_for('index'))
-
-@app.errorhandler(503)
-def service_unavailable(e):
-    return render_template('retry.jsp'), 503
     
 if __name__ == '__main__':
 	debug = True

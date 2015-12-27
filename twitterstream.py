@@ -73,9 +73,10 @@ def fetch_samples(num_tweets):
     else:
         tweet_count = int(num_tweets)
 
-    while not os.path.exists(file) or line_count(file) != tweet_count:
-        print 'Waiting for tweet dump creation...'
+    if not os.path.exists(file) or line_count(file) != tweet_count:
+        print 'Tweet dump not ready yet'
         time.sleep(10)
+        return results
 
     print 'Reading ' + file
     with open(file, 'rb') as f:
