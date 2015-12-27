@@ -19,7 +19,6 @@ def index():
 def login():
 	if request.method == 'POST':
 		if valid_login(request.form['username'], request.form['password']):
-			flash('You were successfully logged in!')
 			return redirect(url_for('analysis'))
 		else:
 			error = 'Invalid username/password'
@@ -101,6 +100,10 @@ def logout():
 	flash('You have been successfully logged out!')
 	return redirect(url_for('index'))
 
+@app.errorhandler(503)
+def service_unavailable(e):
+    return render_template('retry.jsp'), 503
+    
 if __name__ == '__main__':
 	debug = True
 	app.run()

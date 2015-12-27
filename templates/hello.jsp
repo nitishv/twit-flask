@@ -1,5 +1,14 @@
 {% extends "layout.jsp" %}
 {% block content %}
+<script>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                alert("{{ message }}")
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</script>
 <div class="card-panel">
 	<h5>Hello World!</h5>
 	<h4>{% if session.username %} Hi {{session.username}} ! {% endif %}Welcome to the demo twitter app made in Flask</h4>
