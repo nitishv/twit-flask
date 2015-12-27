@@ -9,7 +9,7 @@ import twitterstream
 def get_state_happiness(score_file, tweet_count):
 
 	print 'get_state_happiness' 
-	tweets = twitterstream.fetchsamples(tweet_count)
+	tweets = twitterstream.fetch_samples(tweet_count)
 	
 	print 'Tweets retrieval completed.'
 	

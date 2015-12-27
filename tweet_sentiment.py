@@ -6,7 +6,7 @@ import twitterstream
 
 def calculate_tweet_sentiment(score_file, tweet_count, n, dir):
 
-	tweets = twitterstream.fetchsamples(tweet_count)
+	tweets = twitterstream.fetch_samples(tweet_count)
 	
 	n = int(n)
 	dir = int(dir)

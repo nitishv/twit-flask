@@ -81,7 +81,6 @@ def result():
 		headers = ['Tweet', 'Score']
 		return render_template('result.jsp', results=results, headers=headers)
 	elif option == 5:
-		print 'in 5'
 		results = happiest_state.get_state_happiness('resources/AFINN-111.txt', session['tweet_count'])
 		headers = ['State Code', 'State Name', 'Tweets', 'Score']
 		return render_template('result.jsp', results=results, headers=headers)

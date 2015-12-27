@@ -6,7 +6,7 @@ import twitterstream
 
 def calculate_top_tags(tweet_count, n):
 
-	tweets = twitterstream.fetchsamples(tweet_count)
+	tweets = twitterstream.fetch_samples(tweet_count)
 	
 	n = int(n)
 	tag_count = {}

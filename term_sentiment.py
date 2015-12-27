@@ -3,7 +3,7 @@ import json
 import re
 import string
 
-def hw(score_file, tweet_file):
+def calculate_term_sentiment(score_file, tweet_file):
 	scores = {}
 	new_scores = {}
 	max_score = 0
