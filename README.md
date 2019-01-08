@@ -1,16 +1,20 @@
-#Twit-Flask
+# Twit-Flask
 ====================================
-Author: Nitish Vashishtha
 
-Date: 12/26/2015
+https://twit-flask.herokuapp.com/
 
-Email: nvashish@andrew.cmu.edu
+*Note:* Demo credentials are nitish/1234
+
+*Author:* Nitish Vashishtha
+
+*Date:* 12/26/2015
+
+*Email:* nvashish@andrew.cmu.edu
 
 
 Goal
 ====================================
 Create a responsive and fully functional website using a web framework that enables rapid web development.
-
 
 Overview
 ====================================
@@ -22,12 +26,12 @@ Overview
 
 Technologies used
 ====================================
-- Flask
+- Flask web server
 - OAuth2
 - Twitter REST APIs
 - Google Materialize CSS
 
 
-Note: Demo app credentials on Heroku are user:nitish, pass:1234
+
 
 
